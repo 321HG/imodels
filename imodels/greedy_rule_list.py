@@ -12,19 +12,31 @@ from sklearn.base import BaseEstimator
 
 class GreedyRuleListClassifier(BaseEstimator):
     """
-    Uses CART to learn a list (only a single path), rather than a decision tree.
+    Uses CART to learn a decision list (only a single path), rather than
+    a decision tree.
 
     Parameters
     -------
     max_depth : int, default = 5
-    class_weight : list, default = None
+        The maximum depth of the tree. If None, then nodes are expanded until
+        all leaves are pure or until all leaves contain less than
+        min_samples_split samples.
+
+    class_weight : dict, default = None
+        Weights associated with classes in the form ``{class_label: weight}``.
+        If not given, all classes are supposed to have equal weight of 1.
+
     criterion : {"gini", "entropy", "neg_corr"}, default="gini"
         The function to measure the quality of a split. Supported criteria are
         "gini" for the Gini impurity, "entropy" for the information gain,
         and "neg_corr" for negative correlation
 
-    
-
+    Attributes
+    ------
+    feature_names : list, default = None
+        The names for each feature. It can be specified when ```fit``` is
+        performed. If None, features will be numbered in the order in which they
+        are present in the dataset
     """
     def __init__(self, max_depth=5, class_weight=None, criterion='gini'):
         self.depth = 0
