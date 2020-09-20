@@ -1,4 +1,5 @@
-'''greedy rule list (based on [this implementation](https://medium.com/@penggongting/implementing-decision-tree-from-scratch-in-python-c732e7c69aea)).
+'''
+Greedy rule list (based on [this implementation](https://medium.com/@penggongting/implementing-decision-tree-from-scratch-in-python-c732e7c69aea)).
 Uses CART to learn a list (only a single path), rather than a decision tree.
 '''
 
@@ -10,6 +11,21 @@ from sklearn.base import BaseEstimator
 
 
 class GreedyRuleListClassifier(BaseEstimator):
+    """
+    Uses CART to learn a list (only a single path), rather than a decision tree.
+
+    Parameters
+    -------
+    max_depth : int, default = 5
+    class_weight : list, default = None
+    criterion : {"gini", "entropy", "neg_corr"}, default="gini"
+        The function to measure the quality of a split. Supported criteria are
+        "gini" for the Gini impurity, "entropy" for the information gain,
+        and "neg_corr" for negative correlation
+
+    
+
+    """
     def __init__(self, max_depth=5, class_weight=None, criterion='gini'):
         self.depth = 0
         self.max_depth = max_depth
@@ -49,13 +65,12 @@ class GreedyRuleListClassifier(BaseEstimator):
         elif self.all_same(y):
             return [{'val': y[0], 'num_pts': y.size}]
 
-        # base case 4: max depth reached 
+        # base case 3: max depth reached
         elif depth >= self.max_depth:
             return []
 
         # recursively generate rule list 
         else:
-
             # find a split with the best value for the criterion
             col, cutoff, criterion_val = self.find_best_split(x, y)
 
