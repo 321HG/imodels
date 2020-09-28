@@ -38,6 +38,7 @@ class GreedyRuleListClassifier(BaseEstimator):
         performed. If None, features will be numbered in the order in which they
         are present in the dataset
     """
+
     def __init__(self, max_depth=5, class_weight=None, criterion='gini'):
         self.depth = 0
         self.max_depth = max_depth
